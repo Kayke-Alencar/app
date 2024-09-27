@@ -1,33 +1,47 @@
 import React, { useState } from "react";
-import { Pressable, TextInput } from "react-native";
-import {Text, View } from "react-native";
+import { Pressable, View} from "react-native";
+import { TextInput } from "react-native";
+import {Text} from "react-native";
 
 export function Form(){
-    const[n, setSide] = useState(''); 
-    //n é o nome da variavel setSide é uma funcao que realiza troca, useState é quem vai capturar o  que foi digitado 
-    parseInt(n);
-    const[area, setArea] = useState('');
+    const [Heigth, setHeigth] = useState(""); //Heigth: Altura
+    const[Weigth, setWeigth] = useState(""); //weith: peso
+    const[imc, setImc] = useState("");
 
-
-    function CalcularArea(){
-        let r = (Math.pow(n,2)* Math.sqrt(3))/4;
-        setArea(r);
+    function imcCalculator(){
+        let imc = (Weigth/(Math.pow(Heigth))).toFixed(2);
+        useState(imc);
     }
+
+    function ValidatorImc(){
+        if(Weigth != "" && Heigth != ""){
+            imcCalculator();
+            setHeigth("");
+            setWeigth("");
+        }
+    }
+
 
     return (
         <View>
             <View>
-                <Text>Lado:</Text>  
+                <Text>Heigth:</Text>  
 
                 <TextInput  //Quando uma tag nao tem conteudo podemos "abreviar" ela dessa forma 
-                    onChangeText={setSide}
-                    placeholder="Digite o lado em cm"
+                    placeholder="Ex 1.75"
                     inputMode="numeric"
-                    value={n}
-                /> 
+                    value={Heigth}
+                />
+
+                <Text>Peso</Text>
+                <TextInput
+                    placeholder="Ex 67.5"
+                    inputMode="numeric"
+                    value={Weigth}
+                />
 
                 <Pressable
-                    onPress={()=>CalcularArea()}
+                    onPress={()=>ValidatorImc()}
                 
                 />
 
